@@ -1,0 +1,57 @@
+@use "sass:color";
+
+$color-soft-red: #f65261;
+$color-dark-gray: #424242;
+$color-black: #232323;
+$color-gray: #555555;
+$color-white: #fff;
+
+body {
+  color: $color-white;
+  background-color: $color-black;
+  font-family: sans-serif;
+}
+
+button {
+  border-radius: 4px;
+  letter-spacing: 0.05rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button-dark {
+  color: $color-white;
+  background-color: $color-black;
+  border-radius: 0;
+  height: 2rem;
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.button-primary {
+  width: 12rem;
+  height: 3rem;
+  background-color: $color-soft-red;
+  color: $color-white;
+  font-size: 1.3rem;
+
+  &:hover {
+    background-color: color.scale($color-soft-red, $lightness: 10%);
+    cursor: pointer;
+  }
+}
+
+.button-secondary {
+  border: 1px solid $color-soft-red;
+  color: $color-soft-red;
+}

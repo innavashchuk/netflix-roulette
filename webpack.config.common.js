@@ -7,15 +7,20 @@ const developmentMode = process.env.NODE_ENV === "development";
 const productionMode = !developmentMode;
 
 module.exports = {
-  entry: "./src/index.js",
+  context: path.join(__dirname, 'src'),
+  entry: "./index.tsx",
   output: {
     filename: "[name].bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
+  resolve: {
+    modules: [path.resolve(__dirname, './src'), 'node_modules'],
+    extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: path.resolve(__dirname, 'src', 'index.html'),
       filename: "index.html",
       minify: { collapseWhitespace: productionMode },
     }),
@@ -33,17 +38,24 @@ module.exports = {
         },
       },
       {
+        test: /\.(ts|tsx)$/,
+        loader: 'ts-loader'
+      },
+      {
         test: /\.scss$/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: ""
+            }
           },
           "css-loader",
           "sass-loader",
         ],
       },
       {
-        test: /\.(gif|png|jpg|svg)$/i,
+        test: /\.(ttf|gif|png|jpg|svg)$/i,
         use: [
           {
             loader: "file-loader",

@@ -1,0 +1,10 @@
+@import "../../styles/main.scss";
+
+.logo {
+  color: $color-soft-red;
+  font-size: 22px;
+
+  &__bold {
+    font-weight: bold;
+  }
+}
