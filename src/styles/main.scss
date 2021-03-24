@@ -31,6 +31,11 @@ button {
     outline: none;
     border: none;
   }
+
+  &:hover {
+    background-color: color.scale($color-soft-red, $lightness: 10%);
+    cursor: pointer;
+  }
 }
 
 h1 {
@@ -52,6 +57,13 @@ h1 {
 }
 
 .button-secondary {
+  width: 12rem;
+  height: 3rem;
   border: 1px solid $color-soft-red;
   color: $color-soft-red;
+  background-color: $color-black;
+  
+  &:hover {
+    background-color: $color-gray;
+  }
 }

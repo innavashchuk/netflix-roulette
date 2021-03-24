@@ -1,18 +1,18 @@
-import { MovieGenreEnum } from "../models/enums/movie-genre";
-import { Movie } from "../models/interfaces/movie";
+import { MovieGenreEnum } from '../models/enums/movie-genre';
+import { Movie } from '../models/movie';
 
 export const MOVIES: Movie[] = [
   {
     id: 337167,
-    title: "Fifty Shades Freed",
+    title: 'Fifty Shades Freed',
     tagline: "Don't miss the climax",
     vote_average: 6.1,
     vote_count: 1195,
-    release_date: "2018-02-07",
+    release_date: '2018-02-07',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/3kcEGnYBHDeqmdYf8ZRbKdfmlUy.jpg",
+      'https://image.tmdb.org/t/p/w500/3kcEGnYBHDeqmdYf8ZRbKdfmlUy.jpg',
     overview:
-      "Believing they have left behind shadowy figures from their past, newlyweds Christian and Ana fully embrace an inextricable connection and shared life of luxury. But just as she steps into her role as Mrs. Grey and he relaxes into an unfamiliar stability, new threats could jeopardize their happy ending before it even begins.",
+      'Believing they have left behind shadowy figures from their past, newlyweds Christian and Ana fully embrace an inextricable connection and shared life of luxury. But just as she steps into her role as Mrs. Grey and he relaxes into an unfamiliar stability, new threats could jeopardize their happy ending before it even begins.',
     budget: 55000000,
     revenue: 136906000,
     genres: [MovieGenreEnum.drama, MovieGenreEnum.romance],
@@ -20,13 +20,13 @@ export const MOVIES: Movie[] = [
   },
   {
     id: 335984,
-    title: "Blade Runner 2049",
+    title: 'Blade Runner 2049',
     tagline: "There's still a page left.",
     vote_average: 7.3,
     vote_count: 3955,
-    release_date: "2017-10-04",
+    release_date: '2017-10-04',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg",
+      'https://image.tmdb.org/t/p/w500/gajva2L0rPYkEWjzgFlBXCAVBE5.jpg',
     overview:
       "Thirty years after the events of the first film, a new blade runner, LAPD Officer K, unearths a long-buried secret that has the potential to plunge what's left of society into chaos. K's discovery leads him on a quest to find Rick Deckard, a former LAPD blade runner who has been missing for 30 years.",
     budget: 150000000,
@@ -40,15 +40,15 @@ export const MOVIES: Movie[] = [
   },
   {
     id: 181808,
-    title: "Star Wars: The Last Jedi",
-    tagline: "The Saga Continues",
+    title: 'Star Wars: The Last Jedi',
+    tagline: 'The Saga Continues',
     vote_average: 7.1,
     vote_count: 4732,
-    release_date: "2017-12-13",
+    release_date: '2017-12-13',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg",
+      'https://image.tmdb.org/t/p/w500/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg',
     overview:
-      "Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.",
+      'Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.',
     budget: 200000000,
     revenue: 1325937250,
     genres: [
@@ -60,13 +60,13 @@ export const MOVIES: Movie[] = [
   },
   {
     id: 284054,
-    title: "Black Panther",
-    tagline: "Long live the king",
+    title: 'Black Panther',
+    tagline: 'Long live the king',
     vote_average: 7.3,
     vote_count: 3788,
-    release_date: "2018-02-13",
+    release_date: '2018-02-13',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg",
+      'https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg',
     overview:
       "King T'Challa returns home from America to the reclusive, technologically advanced African nation of Wakanda to serve as his country's new leader. However, T'Challa soon finds that he is challenged for the throne by factions within his own country as well as without.  Using powers reserved to Wakandan kings, T'Challa assumes the Black Panther mantel to join with girlfriend Nakia, the queen-mother, his princess-kid sister,  members of the Dora Milaje (the Wakandan \"special forces\"), and an American secret agent, to prevent Wakanda from being dragged into a world war.",
     budget: 200000000,
@@ -81,13 +81,13 @@ export const MOVIES: Movie[] = [
   },
   {
     id: 354912,
-    title: "Coco",
-    tagline: "The celebration of a lifetime",
+    title: 'Coco',
+    tagline: 'The celebration of a lifetime',
     vote_average: 7.8,
     vote_count: 3619,
-    release_date: "2017-10-27",
+    release_date: '2017-10-27',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg",
+      'https://image.tmdb.org/t/p/w500/eKi8dIrr8voobbaGzDpe8w0PVbC.jpg',
     overview:
       "Despite his family’s baffling generations-old ban on music, Miguel dreams of becoming an accomplished musician like his idol, Ernesto de la Cruz. Desperate to prove his talent, Miguel finds himself in the stunning and colorful Land of the Dead following a mysterious chain of events. Along the way, he meets charming trickster Hector, and together, they set off on an extraordinary journey to unlock the real story behind Miguel's family history.",
     budget: 175000000,
@@ -102,15 +102,15 @@ export const MOVIES: Movie[] = [
   },
   {
     id: 333339,
-    title: "Ready Player One",
-    tagline: "A better reality awaits.",
+    title: 'Ready Player One',
+    tagline: 'A better reality awaits.',
     vote_average: 8.1,
     vote_count: 617,
-    release_date: "2018-03-28",
+    release_date: '2018-03-28',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg",
+      'https://image.tmdb.org/t/p/w500/pU1ULUq8D3iRxl1fdX2lZIzdHuI.jpg',
     overview:
-      "When the creator of a popular video game system dies, a virtual contest is created to compete for his fortune.",
+      'When the creator of a popular video game system dies, a virtual contest is created to compete for his fortune.',
     budget: 175000000,
     revenue: 0,
     genres: [
@@ -122,15 +122,15 @@ export const MOVIES: Movie[] = [
   },
   {
     id: 338970,
-    title: "Tomb Raider",
-    tagline: "Her legend begins",
+    title: 'Tomb Raider',
+    tagline: 'Her legend begins',
     vote_average: 6.2,
     vote_count: 817,
-    release_date: "2018-03-08",
+    release_date: '2018-03-08',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/ePyN2nX9t8SOl70eRW47Q29zUFO.jpg",
+      'https://image.tmdb.org/t/p/w500/ePyN2nX9t8SOl70eRW47Q29zUFO.jpg',
     overview:
-      "Lara Croft, the fiercely independent daughter of a missing adventurer, must push herself beyond her limits when she finds herself on the island where her father disappeared.",
+      'Lara Croft, the fiercely independent daughter of a missing adventurer, must push herself beyond her limits when she finds herself on the island where her father disappeared.',
     budget: 94000000,
     revenue: 126025000,
     genres: [MovieGenreEnum.action, MovieGenreEnum.adventure],
@@ -138,15 +138,15 @@ export const MOVIES: Movie[] = [
   },
   {
     id: 284053,
-    title: "Thor: Ragnarok",
-    tagline: "No Hammer. No Problem.",
+    title: 'Thor: Ragnarok',
+    tagline: 'No Hammer. No Problem.',
     vote_average: 7.4,
     vote_count: 5349,
-    release_date: "2017-10-25",
+    release_date: '2017-10-25',
     poster_path:
-      "https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg",
+      'https://image.tmdb.org/t/p/w500/rzRwTcFvttcN1ZpX2xv4j3tSdJu.jpg',
     overview:
-      "Thor is imprisoned on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization, at the hands of an all-powerful new threat, the ruthless Hela.",
+      'Thor is imprisoned on the other side of the universe and finds himself in a race against time to get back to Asgard to stop Ragnarok, the prophecy of destruction to his homeworld and the end of Asgardian civilization, at the hands of an all-powerful new threat, the ruthless Hela.',
     budget: 180000000,
     revenue: 854229371,
     genres: [

@@ -1,5 +1,5 @@
 @use "sass:color";
-@import "../../styles/main.scss";
+@import '../../styles/main.scss';
 
 .search-header {
   display: flex;
@@ -8,7 +8,7 @@
   padding: 2rem;
   background-color: color.change($color-black, $alpha: 0.8);
 
-  .search-header__top {
+  &__top {
     flex-grow: 2;
     display: flex;
     justify-content: space-between;
@@ -27,7 +27,7 @@
     }
   }
 
-  .search-header__title {
+  &__title {
     flex-grow: 1;
     padding-left: 2rem;
   }

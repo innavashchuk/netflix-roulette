@@ -1,0 +1,7 @@
+@import '../../styles/main.scss';
+
+.header {
+  background-image: url('../../assets/images/background-header.png');
+  background-size: cover;
+  border-bottom: 0.7rem solid $color-gray;
+}

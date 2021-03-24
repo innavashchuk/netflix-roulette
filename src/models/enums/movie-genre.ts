@@ -18,3 +18,21 @@ export enum MovieGenreEnum {
     music = 'Music',
     romance = 'Romance'
 }
+
+export const MOVIE_GENRES_LIST: Array<string> = [
+    MovieGenreEnum.action,
+    MovieGenreEnum.adventure,
+    MovieGenreEnum.animation,
+    MovieGenreEnum.comedy,
+    MovieGenreEnum.crime,
+    MovieGenreEnum.thriller,
+    MovieGenreEnum.drama,
+    MovieGenreEnum.family,
+    MovieGenreEnum.fantasy,
+    MovieGenreEnum.horror,
+    MovieGenreEnum.music,
+    MovieGenreEnum.mystery,
+    MovieGenreEnum.romance,
+    MovieGenreEnum.scienceFiction,
+    MovieGenreEnum.documentary
+];
