@@ -1,7 +1,7 @@
 export enum SortingFieldsEnum {
-  releaseDate = 'Release Date',
-  genre = 'Genre',
-  rating = 'Rating',
+  releaseDate = 'release_date',
+  genre = 'genre',
+  rating = 'vote_average',
 }
 
 export interface Sorter {

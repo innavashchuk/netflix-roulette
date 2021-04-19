@@ -2,31 +2,29 @@ import * as React from 'react';
 import './movies-list.scss';
 import MovieCard from '../movie-card/Movie-Card';
 import { Movie, MovieQueryParams } from '../../models/movie';
-import { useCallback } from 'react';
-import useFetch from '../../hooks/use-fetch';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMovies } from '../../redux/selectors';
+import { getMoviesThunk, deleteMovieThunk, updateMovieThunk } from '../../redux/thunk';
 
 export interface MoviesListProps {
-  onMovieCardClick: (id: number) => void,
   movieQueryParams: MovieQueryParams
 }
 
-function MoviesList({ onMovieCardClick, movieQueryParams }: MoviesListProps): React.ReactElement {
-  const [url, setUrl] = React.useState('');
-  const [init, setInit] = React.useState(null);
-  const [status, moviesList] = useFetch<Array<Movie>>({ url, init });
+function MoviesList({ movieQueryParams }: MoviesListProps): React.ReactElement {
+  const dispatch = useDispatch();
+  const moviesList = useSelector(selectMovies);
 
   React.useEffect(() => {
-    setUrl(`http://localhost:4000/movies?${new URLSearchParams(movieQueryParams)}`);
-    setInit({
-      method: 'GET'
-    });
+    dispatch(getMoviesThunk(movieQueryParams));
   }, [movieQueryParams]);
 
-  const handleMovieCardClick = useCallback(
-    (id: number) => {
-      onMovieCardClick(id)
-    }, [moviesList]
-  );
+  const handleDeleteMovie = (id: number): void => {
+    dispatch(deleteMovieThunk(id, movieQueryParams));
+  };
+
+  const handleUpdateMovie = (movie: Movie): void => {
+    dispatch(updateMovieThunk(movie,movieQueryParams));
+  }
 
   return (
     Array.isArray(moviesList) && moviesList.length !== 0
@@ -36,9 +34,7 @@ function MoviesList({ onMovieCardClick, movieQueryParams }: MoviesListProps): Re
             </p>
         <div className="movies-list">
           {
-            moviesList.map(movie => <MovieCard movie={movie} key={movie.id}
-              onMovieCardClick={e => handleMovieCardClick(e)}
-              />)
+            moviesList.map(movie => <MovieCard movie={movie} key={movie.id} onUpdateMovie={handleUpdateMovie}  onDeleteMovie={handleDeleteMovie} />)
           }
         </div>
       </>

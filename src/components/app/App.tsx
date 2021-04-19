@@ -1,39 +1,20 @@
 import * as React from 'react';
-import { Alert, AlertTitle } from '@material-ui/lab';
-import './app.scss';
-import MovieDetails from '../movie-details/movie-details';
-import StartPage from '../start-page/start-page';
+import MovieDetails from '../movie-details/Movie-Details';
+import StartPage from '../start-page/Start-Page';
+import { useSelector } from 'react-redux';
+import { CustomAlert } from '../custom-alert/Custom-Alert';
+import { selectMovie } from '../../redux/selectors';
 
 const App: React.FunctionComponent<Record<string, unknown>> = () => {
-  const [selectedMovieId, setSelectedMovieId] = React.useState(0);
-  const [showAlert, setShowAlert] = React.useState(false);
-  const [alertText, setAlertText] = React.useState('');
-
-  const handleMovieCardClick = (id: number): void => {
-    setSelectedMovieId(id);
-  };
-
-  const handleClickSearch = (): void => {
-    setSelectedMovieId(0);
-  };
-
-  const handleAlertClose = (): void => {
-    setShowAlert(false);
-  };
+  const selectedMovie = useSelector(selectMovie);
 
   return (
     <>
+    <CustomAlert />
     {
-      showAlert
-      && <Alert onClose={() => handleAlertClose()}>
-        <AlertTitle>componentDidUpdate worked!</AlertTitle>
-        {alertText}
-      </Alert>
-    }
-    {
-      selectedMovieId !== 0
-      ? <MovieDetails movieId={selectedMovieId} onClickSearch={handleClickSearch} onClickMovieCard={handleMovieCardClick} />
-      : <StartPage onClickMovieCard={handleMovieCardClick} />
+      selectedMovie
+      ? <MovieDetails />
+      : <StartPage />
     }
     </>
   );

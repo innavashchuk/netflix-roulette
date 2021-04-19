@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { useState } from 'react';
-import useFetch from '../../hooks/use-fetch';
+import { useDispatch, useSelector } from 'react-redux';
 import { SortingDirectionEnum, SortingFieldsEnum } from '../../models/enums/movies-list';
-import { Movie, MovieQueryParams } from '../../models/movie';
+import { MovieQueryParams } from '../../models/movie';
+import { setMovie } from '../../redux/actions';
+import { selectMovie, selectMovieId } from '../../redux/selectors';
+import { getMoviesThunk } from '../../redux/thunk';
 import ErrorBoundary from '../error-boundary/Error-Boundary';
 import FilterBar from '../filter-bar/Filter-Bar';
 import Footer from '../footer/Footer';
@@ -11,16 +13,10 @@ import Main from '../main/Main';
 import MovieInfoHeader from '../movie-info-header/Movie-Info-Header';
 import MoviesList from '../movies-list/Movies-List';
 
-interface MovieDetailsProps {
-  movieId: number,
-  onClickSearch: () => void,
-  onClickMovieCard: (id: number) => void
-}
-
-export default function MovieDetails({ movieId, onClickSearch, onClickMovieCard }: MovieDetailsProps): React.ReactElement {
-  const [movieUrl, setMovieUrl] = React.useState('');
-  const [movieInit, setMovieInit] = useState(null);
-  const [movieRequestStatus, selectedMovie] = useFetch<Movie>({ url: movieUrl, init: movieInit });
+export default function MovieDetails(): React.ReactElement {
+  const selectedMovie = useSelector(selectMovie);
+  const selectedMovieId = useSelector(selectMovieId);
+  const dispatch = useDispatch();
   const [movieQueryParams, setMovieQueryParams] = React.useState<MovieQueryParams>({
     sortBy: SortingFieldsEnum.rating,
     sortOrder: SortingDirectionEnum.desc,
@@ -32,23 +28,17 @@ export default function MovieDetails({ movieId, onClickSearch, onClickMovieCard 
   });
 
   React.useEffect(() => {
-    if (!selectedMovie || selectedMovie && movieId !== selectedMovie.id) {
-      setMovieUrl(`http://localhost:4000/movies/${movieId}`);
-      setMovieInit({
-        method: 'GET'
-      });
+    if (!selectedMovieId) {
+      return;
     }
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  }, [movieId]);
-  React.useEffect(() => {
-    if (selectedMovie) {
-      setMovieQueryParams(prev => ({
-        ...prev,
-        searchBy: 'genres',
-        filter: selectedMovie.genres.join(', ') || ''
-      }));
-    }
-  }, [selectedMovie]);
+    setMovieQueryParams(prev => ({
+      ...prev,
+      searchBy: 'genres',
+      filter: selectedMovie.genres.join(', ') || ''
+    }));
+    dispatch(getMoviesThunk(movieQueryParams));
+  }, [selectedMovieId]);
 
   const handleFilterChange = (filter: MovieQueryParams) => {
     const filterGenre = filter.filter;
@@ -67,6 +57,7 @@ export default function MovieDetails({ movieId, onClickSearch, onClickMovieCard 
       searchBy: 'genres',
       filter: filteredGenres.join(', ')
     }));
+    dispatch(getMoviesThunk(movieQueryParams));
   };
 
   return (
@@ -75,14 +66,12 @@ export default function MovieDetails({ movieId, onClickSearch, onClickMovieCard 
         <div className="app-container__inner">
           <Header>
             {
-              selectedMovie
-                ? <MovieInfoHeader movie={selectedMovie} onSearchClick={onClickSearch} />
-                : <div>Loading...</div>
+              selectedMovie && <MovieInfoHeader movie={selectedMovie} onSearchClick={() => dispatch(setMovie(null))} />
             }
           </Header>
           <Main>
             <FilterBar filter={movieQueryParams} onFilterChange={handleFilterChange} />
-            <MoviesList onMovieCardClick={onClickMovieCard} movieQueryParams={movieQueryParams} />
+            <MoviesList movieQueryParams={movieQueryParams} />
           </Main>
         </div>
       </ErrorBoundary>

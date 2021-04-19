@@ -1,36 +1,99 @@
-import { MOVIES } from '../data/movies';
-import { Movie } from '../models/movie';
+import { Movie, MovieQueryParams } from '../models/movie';
 
-let DATA_MOVIES = [...MOVIES];
+const BASE_ROUTE = 'http://localhost:4000/movies';
 
-export const getMovies = (): Movie[] => DATA_MOVIES;
-
-export const updateMovie = (movieRecord: Movie): void => {
-  const movieToUpdateIndex = DATA_MOVIES.findIndex(movie => movie.id === movieRecord.id);
-  DATA_MOVIES = [
-    ...DATA_MOVIES.slice(0, movieToUpdateIndex),
-    movieRecord,
-    ...DATA_MOVIES.slice(movieToUpdateIndex + 1)
-  ];
+export const getMovies = async (queryParams: MovieQueryParams): Promise<Movie[]> => {
+  try {
+    const response = await fetch(`${BASE_ROUTE}?${new URLSearchParams(queryParams)}`, {
+      method: 'GET'
+    });
+    const rawData: { data: Movie[] } = await response.json();
+    return rawData.data;
+  }
+  catch (error) {
+    throw new Error(`Failed loading movies. Error: ${error}`);
+  }
 };
 
-export const addMovie = (movieRecord: Movie): void => {
+export const updateMovie = async (movieRecord: Movie): Promise<Movie> => {
   if (!movieRecord) {
-    return;
+    throw new Error('No movie record available.');
   }
-  movieRecord = {
-    ...movieRecord,
-    id: new Date().getTime()
+  try {
+    const response = await fetch(`${BASE_ROUTE}`, {
+      method: 'PUT',
+      body: JSON.stringify(movieRecord),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.status === 200) {
+      const rawData: Movie = await response.json();
+      return rawData;
+    }
+    const rawData: {messages: string[]} = await response.json();
+    throw new Error(rawData.messages && rawData.messages.join('; ') || rawData.toString());
   }
-  DATA_MOVIES.push(movieRecord);
+  catch (error) {
+    throw new Error(`Failed to update a movie. Error: ${error}`);
+  }
 };
 
-export const deleteMovie = (id: number): void => {
-  const movieIndex = DATA_MOVIES.findIndex(movie => movie.id === id);
-  DATA_MOVIES = [
-    ...DATA_MOVIES.slice(0, movieIndex),
-    ...DATA_MOVIES.slice(movieIndex + 1)
-  ];
+export const addMovie = async (movieRecord: Movie): Promise<Movie> => {
+  if (!movieRecord) {
+    throw new Error('No movie record available.');
+  }
+  try {
+    const response = await fetch(`${BASE_ROUTE}`, {
+      method: 'POST',
+      body: JSON.stringify(movieRecord),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (response.status === 201) {
+      const rawData: Movie = await response.json();
+      return rawData;
+    }
+      const rawData: {messages: string[]} = await response.json();
+      throw new Error(rawData.messages && rawData.messages.join('; '));
+  }
+  catch (error) {
+    throw new Error(`Failed adding a movie. Error: ${error}`);
+  }
 };
 
-export const getMovieCardById = (id: number): Movie => DATA_MOVIES.find(movie => movie.id === id);
+export const deleteMovie = async (id: number): Promise<boolean> => {
+  try {
+    const response = await fetch(`${BASE_ROUTE}/${id}`, {
+      method: 'DELETE'
+    });
+    if (response.status === 204) {
+      return true;
+    }
+    throw new Error('Movie not found');
+  }
+  catch (error) {
+    throw new Error(`Failed loading a movie. Error: ${error}`);
+  }
+};
+
+export const getMovie = async (id: number): Promise<Movie> => {
+  try {
+    const response = await fetch(`${BASE_ROUTE}/${id}`, {
+      method: 'GET'
+    });
+    if (response.status === 200) {
+      const rawData: Movie = await response.json();
+      return rawData;
+    }
+    const rawData: {messages: string[]} = await response.json();
+    throw new Error(rawData.messages.join(', '));
+  }
+  catch (error) {
+    throw new Error(`Failed loading a movie. Error: ${error}`);
+  }
+};
+

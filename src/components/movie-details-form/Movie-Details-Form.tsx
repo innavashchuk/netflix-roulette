@@ -52,10 +52,22 @@ const MovieDetailsForm: React.FunctionComponent<MovieDetailsFormProps> = (props:
     }));
   }
 
+  const handleRuntimeChange = (event: React.BaseSyntheticEvent): void => {
+    const { target } = event;
+    if (!target) {
+      return;
+    }
+    const { value, name } = target;
+    setMovieRecord(prevRecord => ({
+      ...prevRecord,
+      [name]: parseInt(value, 10)
+    }));
+  }
+
   const handleDateChange = (date: Date | null): void => {
     setMovieRecord(prevRecord => ({
       ...prevRecord,
-      release_date: date && date.toLocaleDateString() || ''
+      release_date: date && date.toISOString() || ''
     }));
   }
   return (
@@ -163,7 +175,7 @@ const MovieDetailsForm: React.FunctionComponent<MovieDetailsFormProps> = (props:
           type="number"
           value={movieRecord.runtime}
           placeholder="Runtime here"
-          onChange={handleChange}
+          onChange={handleRuntimeChange}
           />
       </form>
       <div className="movie-details__btns">

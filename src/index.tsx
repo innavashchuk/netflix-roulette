@@ -3,6 +3,8 @@ import * as ReactDOM from 'react-dom';
 import App from './components/app/App';
 import './styles.scss';
 import './assets/fonts/fonts.scss';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function importAll(r: any) {
   r.keys().forEach(r);
@@ -11,6 +13,9 @@ function importAll(r: any) {
 importAll(require.context('./assets/images', true, /\.jpg$/));
 
 ReactDOM.render(
-  <App />,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
+

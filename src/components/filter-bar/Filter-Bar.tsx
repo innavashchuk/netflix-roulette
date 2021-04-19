@@ -94,4 +94,3 @@ const FilterBar: React.FunctionComponent<FilterBarProps> = (props: FilterBarProp
 };
 
 export default FilterBar;
-

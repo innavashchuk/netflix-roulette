@@ -1,21 +1,19 @@
 import * as React from 'react';
-import Footer from '../footer/footer';
-import Header from '../header/header';
-import Main from '../main/main';
-import ErrorBoundary from '../error-boundary/error-boundary';
+import Footer from '../footer/Footer';
+import Header from '../header/Header';
+import Main from '../main/Main';
+import ErrorBoundary from '../error-boundary/Error-Boundary';
 import { Movie, MovieQueryParams } from '../../models/movie';
-import MoviesList from '../movies-list/movies-list';
-import FilterBar from '../filter-bar/filter-bar';
+import MoviesList from '../movies-list/Movies-List';
+import FilterBar from '../filter-bar/Filter-Bar';
 import { SortingDirectionEnum, SortingFieldsEnum } from '../../models/enums/movies-list';
 import SearchHeader from '../search-header/Search-Header';
+import { useDispatch } from 'react-redux';
+import { addMovieThunk } from '../../redux/thunk';
 import Search from '../search/Search';
 
-export interface StartPageProps {
-  onClickMovieCard: (id: number) => void
-}
-
-const StartPage = ({ onClickMovieCard }: StartPageProps): React.ReactElement => {
-  
+const StartPage = (): React.ReactElement => {
+  const dispatch = useDispatch();
   const [movieQueryParams, setMovieQueryParams] = React.useState<MovieQueryParams>({
     sortBy: SortingFieldsEnum.rating,
     sortOrder: SortingDirectionEnum.desc,
@@ -45,6 +43,7 @@ const StartPage = ({ onClickMovieCard }: StartPageProps): React.ReactElement => 
   };
 
   const handleAddMovie = (movieRecord: Movie): void => {
+    dispatch(addMovieThunk(movieRecord));
   };
 
   return (
@@ -58,7 +57,7 @@ const StartPage = ({ onClickMovieCard }: StartPageProps): React.ReactElement => 
           </Header>
           <Main>
             <FilterBar filter={movieQueryParams} onFilterChange={handleFilterChange} />
-            <MoviesList movieQueryParams={movieQueryParams} onMovieCardClick={onClickMovieCard} />
+            <MoviesList movieQueryParams={movieQueryParams} />
           </Main>
         </div>
       </ErrorBoundary>
