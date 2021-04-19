@@ -7,141 +7,107 @@ import DeleteMovie from '../delete-movie/Delete-Movie';
 import MovieDetailsForm from '../movie-details-form/Movie-Details-Form';
 import CloseIcon from '@material-ui/icons/Close';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import { useState } from 'react';
+import useToggle from '../../hooks/use-toggle';
 
 export interface MovieCardProps {
   movie: Movie,
   onMovieCardClick: (id: number) => void
 }
 
-interface MovieCardState {
-  movie: Movie,
-  isMenuVisible: boolean,
-  isModalVisible: boolean,
-  shouldDeleteMovie: boolean
-}
-
 const DEFAULT_SRC = '';
 
-export default class MovieCard extends React.Component<MovieCardProps, MovieCardState>{
-  static defaultProps: { movie: Movie };
+const MovieCard: React.FunctionComponent<MovieCardProps> = (props: MovieCardProps) => {
+  const [movie, setMovie] = useState(props.movie);
+  const [isMenuVisible, toggleIsMenuVisible] = useToggle();
+  const [isModalVisible, toggleIsModalVisible] = useToggle();
+  const [shouldDeleteMovie, setShouldDeleteMovie] = useState(false);
 
-  constructor(props: MovieCardProps) {
-    super(props);
-    this.state = {
-      movie: props.movie,
-      isMenuVisible: false,
-      isModalVisible: false,
-      shouldDeleteMovie: false
-    }
-  }
-
-  toggleMenuVisible(value: boolean): void {
-    this.setState({
-      isMenuVisible: value
-    })
-  }
-
-  toggleModalVisible(value: boolean): void {
-    this.setState({
-      isModalVisible: value
-    })
-  }
-
-  onClickMenuBtn = (e: React.SyntheticEvent): void => {
-    this.toggleMenuVisible(true);
+  const onClickMenuBtn = (e: React.SyntheticEvent): void => {
+    toggleIsMenuVisible();
     e.stopPropagation();
-  }
+  };
 
-  onClickCloseMenuBtn = (e: React.BaseSyntheticEvent): void => {
-    this.toggleMenuVisible(false);
+  const onClickCloseMenuBtn = (e: React.BaseSyntheticEvent): void => {
+    toggleIsMenuVisible();
     e.stopPropagation();
-  }
-
-  onClickEditMenuBtn = (e: React.BaseSyntheticEvent): void => {
+  }; 
+  const onClickEditMenuBtn = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
-    this.toggleMenuVisible(false);
-    this.toggleModalVisible(true);
-  }
+    toggleIsMenuVisible();
+    toggleIsModalVisible();
+  };
 
-  onClickDeleteMenuBtn = (e: React.BaseSyntheticEvent): void => {
+  const onClickDeleteMenuBtn = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
-    this.toggleMenuVisible(false);
-    this.toggleModalVisible(true);
-    this.setState({
-      shouldDeleteMovie: true
-    });
-  }
+    toggleIsMenuVisible();
+    toggleIsModalVisible();
+    setShouldDeleteMovie(true);
+  };
 
-  handleMovieDelete = (): void => {
-    this.toggleModalVisible(false);
-    this.setState({
-      shouldDeleteMovie: false
-    });
-    DataService.deleteMovie(this.state.movie.id);
-  }
+  const handleMovieDelete = (): void => {
+    toggleIsModalVisible();
+    setShouldDeleteMovie(false);
+    DataService.deleteMovie(movie.id);
+  };
 
-  onModalClose = (): void => {
-    this.toggleModalVisible(false);
-  }
-
-  handleFormSubmit = (movieRecord: Movie): void => {
-    this.toggleModalVisible(false);
+  const handleFormSubmit = (movieRecord: Movie): void => {
+    toggleIsModalVisible();
     DataService.updateMovie(movieRecord);
-  }
+  };
 
-  handleMovieCardClick = (e: React.BaseSyntheticEvent): void => {
+  const handleMovieCardClick = (e: React.BaseSyntheticEvent): void => {
     const { target } = e;
-    if (this.state.isModalVisible || target.id === 'menu-button') {
+    if (isModalVisible || target.id === 'menu-button') {
       return;
     }
-    this.props.onMovieCardClick(this.state.movie.id);
+    props.onMovieCardClick(movie.id);
   }
 
-  addDefaultSrc = (event: React.BaseSyntheticEvent): void => {
+  const addDefaultSrc = (event: React.BaseSyntheticEvent): void => {
     event.target.src = DEFAULT_SRC;
   };
 
-  render(): React.ReactElement {
-    const { movie } = this.state;
-    return (
-      <div className="movie-card" key={movie.id} onClick={this.handleMovieCardClick}>
-        <img className="movie-image"
-          src={movie.poster_path }
-          alt="poster"
-          onError={this.addDefaultSrc}
-          />
-        <div className="movie-info">
-          <p className="movie-title">{movie.title}</p>
-          <p>{movie.genres.sort().join(', ')}</p>
-          <p className="movie-release-date">{new Date(movie.release_date).getFullYear()}</p>
-        </div>
-        <button className="menu-button" id="menu-button" onClick={this.onClickMenuBtn}>
-          <MoreVertIcon fontSize="large" />
-        </button>
-        {
-          this.state.isMenuVisible
-          && <div className="menu-display">
-            <button className="menu-display__close button-dark" onClick={this.onClickCloseMenuBtn}>
-              <CloseIcon fontSize="small" />
-            </button>
-            <button className="button-dark" onClick={this.onClickEditMenuBtn}>Edit</button>
-            <button className="button-dark" onClick={this.onClickDeleteMenuBtn}>Delete</button>
-          </div>
-        }
-        {
-          this.state.isModalVisible
-          && <Modal onModalClose={this.onModalClose}>
-            {
-              this.state.shouldDeleteMovie
-              ? <DeleteMovie onConfirm={this.handleMovieDelete} />
-              : <MovieDetailsForm movieRecord={this.state.movie} isEdit onFormSubmit={this.handleFormSubmit} />
-            }
-          </Modal>
-        }
+  return (
+    <div className="movie-card" key={movie.id} onClick={handleMovieCardClick}>
+      <img className="movie-image"
+        src={movie.poster_path || DEFAULT_SRC}
+        alt="poster"
+        onError={addDefaultSrc}
+        />
+      <div className="movie-info">
+        <p className="movie-title">{movie.title}</p>
+        <p>{movie.genres.sort().join(', ')}</p>
+        <p className="movie-release-date">{new Date(movie.release_date).getFullYear()}</p>
       </div>
-    )
-  }
-}
+      <button className="menu-button" id="menu-button" onClick={onClickMenuBtn}>
+        <MoreVertIcon fontSize="large" />
+      </button>
+      {
+        isMenuVisible
+        && <div className="menu-display">
+          <button className="menu-display__close button-dark" onClick={onClickCloseMenuBtn}>
+            <CloseIcon fontSize="small" />
+          </button>
+          <button className="button-dark" onClick={onClickEditMenuBtn}>Edit</button>
+          <button className="button-dark" onClick={onClickDeleteMenuBtn}>Delete</button>
+        </div>
+      }
+      {
+        isModalVisible
+        && <Modal onModalClose={toggleIsModalVisible}>
+          {
+            shouldDeleteMovie
+              ? <DeleteMovie onConfirm={handleMovieDelete} />
+              : <MovieDetailsForm movieRecord={movie} isEdit onFormSubmit={handleFormSubmit} />
+          }
+        </Modal>
+      }
+    </div>
+  )
+};
+
+export default MovieCard;
 
 MovieCard.defaultProps = {
   movie: {

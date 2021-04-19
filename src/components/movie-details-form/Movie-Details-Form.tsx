@@ -13,6 +13,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Input, TextareaAutosize } from '@material-ui/core';
 import { MOVIE_GENRES_LIST } from '../../models/enums/movie-genre';
 import { Movie } from '../../models/movie';
+import { useState } from 'react';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -36,166 +37,143 @@ export interface MovieDetailsFormState {
   movieRecord: Movie
 }
 
-export default class MovieDetailsForm extends React.Component<MovieDetailsFormProps, MovieDetailsFormState> {
-  constructor(props: MovieDetailsFormProps) {
-    super(props);
+const MovieDetailsForm: React.FunctionComponent<MovieDetailsFormProps> = (props: MovieDetailsFormProps) => {
+  const [movieRecord, setMovieRecord] = useState(props.movieRecord);
 
-    this.state = {
-      movieRecord: { ...this.props.movieRecord }
-    }
-  }
-
-  handleChange = (event: React.BaseSyntheticEvent): void => {
+  const handleChange = (event: React.BaseSyntheticEvent): void => {
     const { target } = event;
     if (!target) {
       return;
     }
     const { value, name } = target;
-    this.setState({
-      movieRecord: {
-        ...this.state.movieRecord,
-        [name]: value
-      }
-    });
+    setMovieRecord(prevRecord => ({
+      ...prevRecord,
+      [name]: value
+    }));
   }
 
-  handleDateChange = (date: Date | null): void => {
-    this.setState({
-      movieRecord: {
-        ...this.state.movieRecord,
-        release_date: date && date.toLocaleDateString() || ''
-      }
-    });
+  const handleDateChange = (date: Date | null): void => {
+    setMovieRecord(prevRecord => ({
+      ...prevRecord,
+      release_date: date && date.toLocaleDateString() || ''
+    }));
   }
-
-  handleReset = (): void => {
-    this.setState({
-      movieRecord: { ...this.props.movieRecord }
-    });
-  }
-
-  handleSubmit = (event: React.BaseSyntheticEvent): void => {
-    event.preventDefault();
-    this.props.onFormSubmit(this.state.movieRecord);
-  }
-
-  public render(): React.ReactElement {
-    const { movieRecord } = this.state;
-    return (
-      <div className="movie-details">
-        <h1>{`${this.props.isEdit ? 'EDIT' : 'ADD'} MOVIE`}</h1>
-        <form className="movie-details__form">
-          {
-            this.props.isEdit
-            && <><label htmlFor="id" className="movie-details__form_label">
-              MOVIE ID
+  return (
+    <div className="movie-details">
+      <h1>{`${props.isEdit ? 'EDIT' : 'ADD'} MOVIE`}</h1>
+      <form className="movie-details__form">
+        {
+          props.isEdit
+          && <><label htmlFor="id" className="movie-details__form_label">
+            ID
             </label>
-              <input
-                className="movie-details__form_input disabled"
-                name="title"
-                type="text"
-                value={movieRecord.id}
-                disabled
-                />
-            </>
-          }
-          <label htmlFor="title" className="movie-details__form_label">
-            TITLE
-          </label>
-          <input
-            className="movie-details__form_input"
-            name="title"
-            type="text"
-            value={movieRecord.title}
-            placeholder="Title here"
-            onChange={this.handleChange}
-            />
-          <label htmlFor="release_date" className="movie-details__form_label">
-            RELEASE DATE
-          </label>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              name="release_date"
-              disableToolbar
-              variant="inline"
-              format="MM/dd/yyyy"
-              margin="normal"
-              id="date-picker-inline"
-              value={movieRecord.release_date && new Date(movieRecord.release_date) || new Date()}
-              onChange={this.handleDateChange}
-              KeyboardButtonProps={{
-                'aria-label': 'change date',
-              }}
-              placeholder="Select Date"
+            <input
+              className="movie-details__form_input disabled"
+              name="title"
+              type="text"
+              value={movieRecord.id}
+              disabled
               />
-          </MuiPickersUtilsProvider>
-          <label htmlFor="poster_path" className="movie-details__form_label">
-            MOVIE URL
+          </>
+        }
+        <label htmlFor="title" className="movie-details__form_label">
+          TITLE
           </label>
-          <input
-            className="movie-details__form_input"
-            name="poster_path"
-            type="text"
-            value={movieRecord.poster_path}
-            placeholder="Movie URL here"
-            onChange={this.handleChange}
-            />
-          <label htmlFor="genres" className="movie-details__form_label">
-            GENRE
+        <input
+          className="movie-details__form_input"
+          name="title"
+          type="text"
+          value={movieRecord.title}
+          placeholder="Title here"
+          onChange={handleChange}
+          />
+        <label htmlFor="release_date" className="movie-details__form_label">
+          RELEASE DATE
           </label>
-          <Select
-            id="genres"
-            name="genres"
-            multiple
-            displayEmpty
-            value={movieRecord.genres}
-            onChange={this.handleChange}
-            input={<Input className="movie-details__form_input" />}
-            renderValue={(selected: string[]) => {
-              if (selected.length === 0) {
-                return <em>Select Genre</em>;
-              }
-
-              return selected.join(', ');
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            name="release_date"
+            disableToolbar
+            variant="inline"
+            format="MM/dd/yyyy"
+            margin="normal"
+            id="date-picker-inline"
+            value={movieRecord.release_date && new Date(movieRecord.release_date) || new Date()}
+            onChange={handleDateChange}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
             }}
-            MenuProps={MenuProps}
-            inputProps={{ 'aria-label': 'Without label' }}>
-            {MOVIE_GENRES_LIST.map(genre =>
-              <MenuItem key={genre} value={genre}>
-                <Checkbox checked={movieRecord.genres.indexOf(genre) > -1} />
-                <ListItemText primary={genre} />
-              </MenuItem>
-            )}
-          </Select>
-          <label htmlFor="overview" className="movie-details__form_label">
-            OVERVIEW
-          </label>
-          <TextareaAutosize
-            className="movie-details__form_input"
-            name="overview"
-            value={movieRecord.overview}
-            placeholder="Overview here"
-            onChange={this.handleChange}
+            placeholder="Select Date"
             />
-          <label htmlFor="runtime" className="movie-details__form_label">
-            RUNTIME
+        </MuiPickersUtilsProvider>
+        <label htmlFor="poster_path" className="movie-details__form_label">
+          MOVIE URL
           </label>
-          <input
-            className="movie-details__form_input"
-            name="runtime"
-            type="number"
-            value={movieRecord.runtime}
-            placeholder="Runtime here"
-            onChange={this.handleChange}
-            />
-        </form>
-        <div className="movie-details__btns">
-          <button className="button-secondary" onClick={this.handleReset}>RESET</button>
-          <button className="button-primary" onClick={this.handleSubmit}>
-            SUBMIT
+        <input
+          className="movie-details__form_input"
+          name="poster_path"
+          type="text"
+          value={movieRecord.poster_path}
+          placeholder="Movie URL here"
+          onChange={handleChange}
+          />
+        <label htmlFor="genres" className="movie-details__form_label">
+          GENRE
+          </label>
+        <Select
+          id="genres"
+          name="genres"
+          multiple
+          displayEmpty
+          value={movieRecord.genres}
+          onChange={handleChange}
+          input={<Input className="movie-details__form_input" />}
+          renderValue={(selected: string[]) => {
+            if (selected.length === 0) {
+              return <em>Select Genre</em>;
+            }
+
+            return selected.join(', ');
+          }}
+          MenuProps={MenuProps}
+          inputProps={{ 'aria-label': 'Without label' }}>
+          {MOVIE_GENRES_LIST.map(genre =>
+            <MenuItem key={genre} value={genre}>
+              <Checkbox checked={movieRecord.genres.indexOf(genre) > -1} />
+              <ListItemText primary={genre} />
+            </MenuItem>
+          )}
+        </Select>
+        <label htmlFor="overview" className="movie-details__form_label">
+          OVERVIEW
+          </label>
+        <TextareaAutosize
+          className="movie-details__form_input"
+          name="overview"
+          value={movieRecord.overview}
+          placeholder="Overview here"
+          onChange={handleChange}
+          />
+        <label htmlFor="runtime" className="movie-details__form_label">
+          RUNTIME
+          </label>
+        <input
+          className="movie-details__form_input"
+          name="runtime"
+          type="number"
+          value={movieRecord.runtime}
+          placeholder="Runtime here"
+          onChange={handleChange}
+          />
+      </form>
+      <div className="movie-details__btns">
+        <button className="button-secondary" onClick={() => setMovieRecord({ ...props.movieRecord })}>RESET</button>
+        <button className="button-primary" onClick={() => props.onFormSubmit(movieRecord)}>
+          SUBMIT
             </button>
-        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+
+export default MovieDetailsForm;

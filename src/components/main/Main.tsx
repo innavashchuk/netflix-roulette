@@ -1,27 +1,14 @@
 import * as React from 'react';
-import { MoviesFilter } from '../../models/enums/movies-list';
-import FilterBar from '../filter-bar/Filter-Bar';
 import './main.scss';
 
 export interface MainProps {
-  children: React.ReactNode,
-  filter: MoviesFilter,
-  onFilterChange: (filter: MoviesFilter | string) => void
+  children: React.ReactNode
 }
 
-export default class Main extends React.Component<MainProps, Record<string, unknown>> {
-  
-  handleFilterChange = (filter: MoviesFilter): void => {
-    this.props.onFilterChange(filter);
-  }
+const Main: React.FunctionComponent<MainProps> = (props: MainProps) => 
+  <main className="main-container">
+    {props.children}
+  </main>
+;
 
-  public render(): React.ReactElement {
-    return (
-      <main className="main-container">
-        <FilterBar filter={this.props.filter} onFilterChange={this.handleFilterChange} />
-        {this.props.children}
-      </main>
-    );
-  }
-}
-
+export default Main;

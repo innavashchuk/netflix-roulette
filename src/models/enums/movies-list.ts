@@ -5,8 +5,9 @@ export enum SortingFieldsEnum {
 }
 
 export interface Sorter {
-  key: string;
-  name: SortingFieldsEnum;
+  key: string,
+  name: string,
+  label: string
 }
 
 export interface SorterList {
@@ -31,8 +32,8 @@ export interface FilterList {
 }
 
 export enum SortingDirectionEnum {
-  asc = 1,
-  desc = -1,
+  asc = 'asc',
+  desc = 'desc',
 }
 
 export const FILTER_FIELDS: FilterList = {
@@ -62,14 +63,17 @@ export const SORTING_FIELDS: SorterList = {
   [SortingFieldsEnum.releaseDate]: {
     key: 'sortingField0',
     name: SortingFieldsEnum.releaseDate,
+    label: 'release date'
   },
   [SortingFieldsEnum.genre]: {
     key: 'sortingField1',
     name: SortingFieldsEnum.genre,
+    label: 'genre'
   },
   [SortingFieldsEnum.rating]: {
     key: 'sortingField2',
     name: SortingFieldsEnum.rating,
+    label: 'rating'
   },
 };
 

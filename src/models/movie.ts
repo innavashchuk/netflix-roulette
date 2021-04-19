@@ -40,3 +40,14 @@ export class MovieRecord implements Movie {
 
   tagline: string;
 }
+
+export interface MovieQueryParams {
+  [key: string]: string,
+  sortBy: string,
+  sortOrder: string,
+  search: string,
+  searchBy: string,
+  filter: string,
+  offset: string,
+  limit: string
+}
