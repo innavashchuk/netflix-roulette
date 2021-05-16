@@ -17,6 +17,7 @@
 
   &__item {
     font-weight: 500;
+
     &:hover {
       cursor: pointer;
       border-bottom: 2px solid $color-soft-red;
@@ -51,8 +52,14 @@
     appearance: none;
     padding: 0 0.2rem;
 
+    &.button-dark, .button-dark {
+      font-size: 1.1rem;
+      padding-top: 3px;
+    }
+
     &:hover {
       cursor: pointer;
+
       .filter-tab__sort_direction_desc {
         border-top: 10px solid $color-black;
       }

@@ -1,10 +1,8 @@
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { SortingDirectionEnum, SortingFieldsEnum } from '../../models/enums/movies-list';
-import { MovieQueryParams } from '../../models/movie';
-import { setMovie } from '../../redux/actions';
-import { selectMovie, selectMovieId } from '../../redux/selectors';
-import { getMoviesThunk } from '../../redux/thunk';
+import {useDispatch, useSelector} from 'react-redux';
+import {FilterFieldEnum, SortingDirectionEnum, SortingFieldsEnum} from '../../models/enums/movies-list';
+import {selectMovie, selectMovieId, selectMovieNotFound, selectMovieQueryParams} from '../../redux/selectors';
+import {getMoviesThunk, getMovieThunk} from '../../redux/thunk';
 import ErrorBoundary from '../error-boundary/Error-Boundary';
 import FilterBar from '../filter-bar/Filter-Bar';
 import Footer from '../footer/Footer';
@@ -12,71 +10,92 @@ import Header from '../header/Header';
 import Main from '../main/Main';
 import MovieInfoHeader from '../movie-info-header/Movie-Info-Header';
 import MoviesList from '../movies-list/Movies-List';
+import useRouter from '../../hooks/use-router';
+import {setFilter, setMovieNotFound, setMovies, setQueryParams} from '../../redux/actions';
+import {MovieQueryParamsDict} from '../../models/movie-query-params';
 
 export default function MovieDetails(): React.ReactElement {
-  const selectedMovie = useSelector(selectMovie);
-  const selectedMovieId = useSelector(selectMovieId);
-  const dispatch = useDispatch();
-  const [movieQueryParams, setMovieQueryParams] = React.useState<MovieQueryParams>({
-    sortBy: SortingFieldsEnum.rating,
-    sortOrder: SortingDirectionEnum.desc,
-    search: '',
-    searchBy: 'genres',
-    filter: '',
-    offset: '',
-    limit: '24'
-  });
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const movieId = router.query.id as number;
+    const selectedMovie = useSelector(selectMovie);
+    const selectedMovieId = useSelector(selectMovieId);
+    const movieNotFound = useSelector(selectMovieNotFound);
+    const movieQueryParams = useSelector(selectMovieQueryParams);
 
-  React.useEffect(() => {
-    if (!selectedMovieId) {
-      return;
-    }
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    setMovieQueryParams(prev => ({
-      ...prev,
-      searchBy: 'genres',
-      filter: selectedMovie.genres.join(', ') || ''
-    }));
-    dispatch(getMoviesThunk(movieQueryParams));
-  }, [selectedMovieId]);
+    React.useEffect(() => {
+        if (!movieId) {
+            return;
+        }
+        dispatch(setQueryParams(new MovieQueryParamsDict({
+            sortBy: SortingFieldsEnum.rating,
+            sortOrder: SortingDirectionEnum.desc,
+            search: '',
+            searchBy: 'genres',
+            filter: FilterFieldEnum.all,
+            offset: '',
+            limit: '24'
+        })));
+        dispatch(getMovieThunk(movieId));
+    }, [movieId]);
 
-  const handleFilterChange = (filter: MovieQueryParams) => {
-    const filterGenre = filter.filter;
-    let filteredGenres: string[] = [];
-    if (selectedMovie && selectedMovie.genres) {
-      if (filterGenre) {
-        filteredGenres = Array.from(new Set([...selectedMovie.genres, ...filterGenre.split(', ')]));
-      } else {
-        filteredGenres = [...selectedMovie.genres];
-      }
-    }
-    setMovieQueryParams(prev => ({
-      ...prev,
-      sortBy: filter.sortBy,
-      sortOrder: filter.sortOrder,
-      searchBy: 'genres',
-      filter: filteredGenres.join(', ')
-    }));
-    dispatch(getMoviesThunk(movieQueryParams));
-  };
+    React.useEffect(() => {
+        if (!movieNotFound) {
+            return;
+        }
+        dispatch(setMovieNotFound(false));
+        dispatch(setQueryParams(null));
+        router.history.push('/error');
+    }, [movieNotFound]);
 
-  return (
-    <div className="app-container">
-      <ErrorBoundary>
-        <div className="app-container__inner">
-          <Header>
-            {
-              selectedMovie && <MovieInfoHeader movie={selectedMovie} onSearchClick={() => dispatch(setMovie(null))} />
+    React.useEffect(() => {
+        if (!selectedMovieId) {
+            return;
+        }
+        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+        dispatch(setFilter(selectedMovie.genres.join(', ') || ''));
+    }, [selectedMovieId]);
+
+    React.useEffect(() => {
+        if (movieQueryParams) {
+            dispatch(getMoviesThunk(movieQueryParams));
+        }
+    }, [movieQueryParams]);
+
+    const onFilterChange = (filter: string) => {
+        let filteredGenres: string[] = [];
+        if (selectedMovie && selectedMovie.genres) {
+            if (filter) {
+                filteredGenres = Array.from(new Set([...selectedMovie.genres, ...filter.split(', ')]));
+            } else {
+                filteredGenres = [...selectedMovie.genres];
             }
-          </Header>
-          <Main>
-            <FilterBar filter={movieQueryParams} onFilterChange={handleFilterChange} />
-            <MoviesList movieQueryParams={movieQueryParams} />
-          </Main>
-        </div>
-      </ErrorBoundary>
-      <Footer />
-    </div>
-  );
-};
+        }
+        dispatch(setFilter(filteredGenres.join(', ')));
+    };
 
+    const onSearchClick = (): void => {
+        dispatch(setMovies([]));
+        dispatch(setQueryParams(null));
+        router.history.push('/');
+    };
+
+    return (
+        <div className="app-container">
+            <ErrorBoundary>
+                <div className="app-container__inner">
+                    <Header>
+                        {
+                            selectedMovie && <MovieInfoHeader movie={selectedMovie} onSearchClick={onSearchClick}/>
+                        }
+                    </Header>
+                    <Main>
+                        <FilterBar onFilterChange={onFilterChange} notEmpty/>
+                        <MoviesList/>
+                    </Main>
+                </div>
+            </ErrorBoundary>
+            <Footer/>
+        </div>
+    );
+};
