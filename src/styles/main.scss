@@ -62,8 +62,40 @@ h1 {
   border: 1px solid $color-soft-red;
   color: $color-soft-red;
   background-color: $color-black;
-  
+
   &:hover {
     background-color: $color-gray;
+  }
+}
+
+.button-invalid {
+  background-color: $color-gray;
+  &:hover {
+    background-color: $color-gray;
+    cursor: default;
+  }
+}
+
+.validation-error-display {
+  color: color.scale($color-soft-red, $lightness: 20%);
+  margin: 0.3rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.form-label {
+  color: $color-soft-red;
+}
+
+.form-input {
+  margin: 0.3rem 0 1rem;
+
+  &.disabled {
+    margin: 0;
+    background-color: $color-black;
+  }
+
+  &.invalid-field {
+    border: 1px solid color.scale($color-soft-red, $lightness: 20%);
+    margin-bottom: 0;
   }
 }

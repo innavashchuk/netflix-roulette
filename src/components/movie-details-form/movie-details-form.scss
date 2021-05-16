@@ -6,7 +6,7 @@
   flex-direction: column;
   height: 100%;
   width: 35rem;
-  font-weight: 1.2rem;
+  font-size: 1.2rem;
 
   &__form {
     display: flex;
@@ -16,7 +16,7 @@
     textarea.movie-details__form_input {
       height: auto;
     }
-    .movie-details__form_input {
+    &_input {
       @extend .custom_input !optional;
       margin: 0.3rem 0 1rem;
       height: 3rem;
@@ -44,6 +44,11 @@
       color: $color-white;
       border-radius: 5px;
       padding: 0.42rem 1rem;
+
+      &.invalid-field {
+        border: 1px solid color.scale($color-soft-red, $lightness: 20%);
+        margin-bottom: 0;
+      }
     }
 
     .MuiInputBase-input {

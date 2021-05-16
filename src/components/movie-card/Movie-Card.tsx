@@ -10,6 +10,7 @@ import useToggle from '../../hooks/use-toggle';
 import { useDispatch } from 'react-redux';
 import { getMovieThunk } from '../../redux/thunk';
 import DeleteMovie from '../delete-movie/Delete-Movie';
+import { InitialMovieRecord, InitialMovieValues } from '../../models/initial-movie-record';
 
 export interface MovieCardProps {
   movie: Movie,
@@ -21,7 +22,7 @@ const DEFAULT_SRC = '';
 
 const MovieCard: React.FunctionComponent<MovieCardProps> = (props: MovieCardProps) => {
   const dispatch = useDispatch();
-  const [movie, setMovie] = useState(props.movie);
+  const [movie] = useState(InitialMovieRecord.mapMovieRecordToInitialValues(props.movie));
   const [isMenuVisible, toggleIsMenuVisible] = useToggle();
   const [isModalVisible, toggleIsModalVisible] = useToggle();
   const [shouldDeleteMovie, setShouldDeleteMovie] = useState(false);
@@ -34,7 +35,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = (props: MovieCardProp
   const onClickCloseMenuBtn = (e: React.BaseSyntheticEvent): void => {
     toggleIsMenuVisible();
     e.stopPropagation();
-  }; 
+  };
   const onClickEditMenuBtn = (e: React.BaseSyntheticEvent): void => {
     e.stopPropagation();
     toggleIsMenuVisible();
@@ -54,12 +55,12 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = (props: MovieCardProp
     props.onDeleteMovie(movie.id);
   };
 
-  const handleFormSubmit = (movieRecord: Movie): void => {
+  const handleFormSubmit = (movieRecord: InitialMovieValues): void => {
     if (!movieRecord) {
       return;
     }
     toggleIsModalVisible();
-    props.onUpdateMovie(movieRecord);
+    props.onUpdateMovie(InitialMovieRecord.mapInitialValuesToMovieRecord(props.movie, movieRecord));
   };
 
   const handleMovieCardClick = (e: React.BaseSyntheticEvent): void => {
@@ -84,7 +85,7 @@ const MovieCard: React.FunctionComponent<MovieCardProps> = (props: MovieCardProp
       <div className="movie-info">
         <p className="movie-title">{movie.title}</p>
         <p>{movie.genres.sort().join(', ')}</p>
-        <p className="movie-release-date">{new Date(movie.release_date).getFullYear()}</p>
+        <p className="movie-release-date">{movie.release_date.getFullYear()}</p>
       </div>
       <button className="menu-button" id="menu-button" onClick={onClickMenuBtn}>
         <MoreVertIcon fontSize="large" />

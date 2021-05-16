@@ -1,4 +1,4 @@
-import { MovieGenreEnum } from './enums/movie-genre';
+import { InitialMovieValues } from './initial-movie-record';
 
 export interface Movie {
   id: number,
@@ -12,7 +12,7 @@ export interface Movie {
   vote_count: number,
   revenue: number,
   budget: number,
-  tagline: string
+  tagline?: string
 }
 
 export class MovieRecord implements Movie {
@@ -24,9 +24,9 @@ export class MovieRecord implements Movie {
 
   poster_path = '';
 
-  genres: MovieGenreEnum[] = [];
+  genres: string[] = [];
 
-  overview = '';
+  overview = 'No overview provided';
 
   runtime = 0;
 
@@ -38,7 +38,18 @@ export class MovieRecord implements Movie {
 
   budget: number;
 
-  tagline: string;
+  tagline: 'No tagline provided';
+
+  constructor(values?: InitialMovieValues) {
+    if (values) {
+      this.title = values.title;
+      this.genres = values.genres;
+      this.overview = values.overview;
+      this.poster_path = values.poster_path;
+      this.release_date = values.release_date.toISOString();
+      this.runtime = values.runtime;
+    }
+  }
 }
 
 export interface MovieQueryParams {
