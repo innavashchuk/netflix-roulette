@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {render, screen, fireEvent, within, waitFor} from '@testing-library/react';
-import MovieDetailsForm from './movie-details-form';
+import MovieDetailsForm from './Movie-Details-Form';
 import {InitialMovieRecord, InitialMovieValues} from '../../models/initial-movie-record';
 
 const DATE_STRING = '01/01/2001';
