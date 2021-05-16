@@ -19,6 +19,7 @@ export default class Modal extends React.Component<ModalProps, Record<string, ne
     super(props);
     this.element = document.createElement('div');
     this.element.classList.add('modal-container');
+    this.handleCloseClick.bind(this);
   }
 
   componentDidMount(): void {
@@ -29,7 +30,7 @@ export default class Modal extends React.Component<ModalProps, Record<string, ne
     MODAL_ROOT.removeChild(this.element);
   }
 
-  handleCloseClick = (): void => {
+  handleCloseClick(): void {
     this.props.onModalClose();
   }
 

@@ -20,6 +20,7 @@ export const InputTextField = ({ label, disabled, ...props }: InputTextFieldProp
         <label htmlFor={props.name} className="form-label">{label}</label>
         <input
             className={`form-input${!disabled && meta.touched && meta.error ? ' invalid-field' : ''}${disabled ? ' disabled' : ''}`}
+            aria-label={label}
             {...field}
             {...props}
             />

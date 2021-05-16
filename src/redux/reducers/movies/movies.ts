@@ -1,6 +1,6 @@
-import {Movie} from '../../models/movie';
-import {ActionTypes} from '../action-types';
-import {Action} from '../actions';
+import {Movie} from '../../../models/movie';
+import {ActionTypes} from '../../action-types';
+import {Action} from '../../actions';
 
 export interface MoviesState {
     items: Array<Movie>,
@@ -8,7 +8,7 @@ export interface MoviesState {
     notFound: boolean
 }
 
-const initialState: MoviesState = {
+export const initialState: MoviesState = {
     items: [],
     selectedMovie: null,
     notFound: false

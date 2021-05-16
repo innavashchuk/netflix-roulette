@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import alertReducer, {AlertState} from './alert';
 import loaderReducer, {LoaderState} from './loader';
-import moviesReducer, {MoviesState} from './movies';
+import moviesReducer, {MoviesState} from './movies/movies';
 import {MovieQueryParams} from '../../models/movie-query-params';
 import queryParamsReducer from './query-params';
 
