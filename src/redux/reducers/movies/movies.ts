@@ -22,6 +22,11 @@ export default function moviesReducer(state: MoviesState = initialState, action:
                 selectedMovie: action.payload.movie
             }
         }
+        case ActionTypes.GET_MOVIE: {
+            return {
+                ...state
+            }
+        }
         case ActionTypes.SET_MOVIE_NOT_FOUND: {
             return {
                 ...state,

@@ -1,70 +1,72 @@
 const path = require("path");
-const {CleanWebpackPlugin} = require("clean-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 const developmentMode = process.env.NODE_ENV === "development";
 const productionMode = !developmentMode;
+const webpack = require('webpack');
 
 module.exports = {
-    context: path.join(__dirname, 'src'),
-    entry: "./index.tsx",
+    target: 'web',
     output: {
-        filename: "[name].bundle.js",
-        path: path.resolve(__dirname, "dist"),
-        chunkFilename: '[name].bundle.js',
+        filename: 'js/[name].js',
+        path: path.resolve(__dirname, './public'),
         publicPath: '/'
     },
+
     resolve: {
         modules: [path.resolve(__dirname, './src'), 'node_modules'],
-        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx']
+        extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
+        alias: {
+            'react-dom': '@hot-loader/react-dom',
+        },
+
     },
-    plugins: [
-        new CleanWebpackPlugin(),
-        new HtmlWebpackPlugin({
-            template: path.resolve(__dirname, 'src', 'index.html'),
-            filename: "index.html",
-            minify: {collapseWhitespace: productionMode},
-        }),
-        new MiniCssExtractPlugin({
-            filename: "[name].bundle.css",
-        }),
-    ],
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
+    },
+    resolveLoader: {
+        alias: {
+            'remove-comments-loader': path.join(__dirname, 'src/loaders', 'remove-comments-loader.js')
+        }
+    },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader",
-                },
-            },
-            {
                 test: /\.(ts|tsx)$/,
-                loader: 'ts-loader'
+                loader: 'awesome-typescript-loader',
             },
             {
-                test: /\.scss$/,
+                test: /\.(js|jsx?)$/,
+                loader: 'babel-loader',
+            },
+            {
+                test: /\.s[ac]ss$/i,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
                         options: {
-                            publicPath: ""
+                            publicPath: ''
                         }
-                    },
-                    "css-loader",
-                    "sass-loader",
-                ],
+                    }, {
+                        loader: 'css-loader'
+                    }, {
+                        loader: 'sass-loader'
+                    }],
             },
             {
-                test: /\.(ttf|gif|png|jpg|svg)$/i,
-                use: [
-                    {
-                        loader: "file-loader",
-                        options: {name: "images/[name].[ext]"},
-                    },
-                ],
+                test: /\.(ttf|eot|svg|woff|png|jpe?g|gif)$/i,
+                loader: 'file-loader',
+                options: {
+                    name: '[path][name].[ext]?[hash]'
+                }
             },
         ],
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: './styles.css'
+        })
+    ],
 };

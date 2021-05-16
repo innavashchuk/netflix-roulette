@@ -1,7 +1,7 @@
 import {ActionTypes} from './action-types';
 import {Movie} from '../models/movie';
 import {AlertState} from './reducers/alert';
-import {MovieQueryParams} from '../models/movie-query-params';
+import {MovieQueryParams, MovieQueryParamsDict} from '../models/movie-query-params';
 
 export interface Action {
     type: string,
@@ -21,6 +21,11 @@ export const setMovieNotFound = (notFound: boolean): Action => ({
 export const setMovies = (movies: Movie[] | undefined[]): Action => ({
     type: ActionTypes.SET_MOVIES,
     payload: {movies}
+});
+
+export const getMovies = (queryParams: MovieQueryParamsDict): Action => ({
+    type: ActionTypes.GET_MOVIES,
+    payload: {queryParams}
 });
 
 export const setLoading = (isLoading: boolean): Action => ({

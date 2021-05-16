@@ -1,14 +1,9 @@
+import * as renderer from 'react-test-renderer';
 import * as React from 'react';
-import {render} from '@testing-library/react';
-import App from './app';
+import App from './App';
 
-jest.mock('../search-movies-page/search-movies-page', () => () => <div>StartPage</div>);
-jest.mock('../movie-details/movie-details', () => () => <div>MovieDetails</div>);
-jest.mock('../custom-alert/custom-alert', () => () => <div>CustomAlert</div>);
-
-describe('App', () => {
-    it('should initialize', () => {
-        const {asFragment} = render(<App/>);
-        expect(asFragment()).toMatchSnapshot();
-    });
+test('App is initialized', () => {
+    const appComponent = renderer.create(<App Router={null} context="" location="" store={null}/>);
+    const appTree = appComponent.toJSON();
+    expect(appTree).toMatchSnapshot();
 });
