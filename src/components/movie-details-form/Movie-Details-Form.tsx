@@ -14,7 +14,7 @@ import Checkbox from '@material-ui/core/Checkbox';
 import { Input, TextareaAutosize } from '@material-ui/core';
 import { MOVIE_GENRES_LIST } from '../../models/enums/movie-genre';
 import { InitialMovieValues } from '../../models/initial-movie-record';
-import { InputTextField } from '../input-text-field/input-text-field';
+import { InputTextField } from '../input-text-field/Input-Text-Field';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
