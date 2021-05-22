@@ -1,7 +1,7 @@
 import { InitialMovieValues } from './initial-movie-record';
 
 export interface Movie {
-  id: number,
+  id?: number,
   title: string,
   release_date: string;
   poster_path: string,
@@ -16,11 +16,9 @@ export interface Movie {
 }
 
 export class MovieRecord implements Movie {
-  id = 0;
-
   title = '';
 
-  release_date = new Date().toDateString();
+  release_date = new Date().toISOString();
 
   poster_path = '';
 
