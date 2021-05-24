@@ -1,6 +1,5 @@
 import * as React from 'react';
-import {fireEvent, render, screen} from '@testing-library/react';
-import {Dispatch} from 'react';
+import { render, screen } from '@testing-library/react';
 import FilterBar from './filter-bar';
 
 jest.mock('react-redux', () => ({
@@ -41,16 +40,5 @@ describe('FilterBar', () => {
         render(<FilterBar onFilterChange={onFilterChange}/>);
         const sortOrderIcon = screen.getByTestId('sortOrderIcon');
         expect(sortOrderIcon.className).toEqual('filter-tab__sort_direction_desc');
-    });
-
-    it('should call setState on button click', async () => {
-        const state = 'desc';
-        const setState: Dispatch<unknown> = jest.fn();
-        const useStateSpy = jest.spyOn(React, 'useState')
-        useStateSpy.mockImplementationOnce(() => [state, setState]);
-        render(<FilterBar onFilterChange={onFilterChange}/>);
-        const sortOrderButton = screen.getByRole('button', {name: 'SORT ORDER'});
-        fireEvent.click(sortOrderButton);
-        expect(setState).toHaveBeenCalledWith('asc');
     });
 });
