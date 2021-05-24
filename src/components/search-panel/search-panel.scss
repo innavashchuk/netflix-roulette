@@ -1,0 +1,15 @@
+@use "sass:color";
+@import "../../styles/theme.scss";
+
+.search-panel {
+  display: flex;
+
+  flex-grow: 3;
+  padding: 0 2rem;
+
+  .search-panel__input {
+    @extend .custom_input !optional;
+    flex-grow: 1;
+    margin-right: 1rem;
+  }
+}

@@ -1,0 +1,12 @@
+.delete-movie-confirm {
+    display: flex;
+    flex-direction: column;
+    height: 12rem;
+    margin-bottom: 3rem;
+    justify-content: space-between;
+    font-size: 1.3rem;
+
+    .delete-movie__btn {
+        align-self: flex-end;
+    }
+}

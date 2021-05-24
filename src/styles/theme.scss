@@ -1,0 +1,125 @@
+@use "sass:color";
+
+$COLOR_HIGHLIGHT: #f65261;
+$COLOR_BACKGROUND: #232323;
+$COLOR_FONT_PRIMARY: #fff;
+$COLOR_FONT_SECONDARY: #555555;
+$COLOR_INPUT_BACKGROUND: #424242;
+
+body {
+  color: $COLOR_FONT_PRIMARY;
+  background-color: $COLOR_BACKGROUND;
+  font-family: "Maven Pro", sans-serif;
+}
+
+button {
+  border-radius: 4px;
+  letter-spacing: 0.05rem;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.button-dark {
+  color: $COLOR_FONT_PRIMARY;
+  background-color: $COLOR_BACKGROUND;
+  border-radius: 0;
+  height: 2rem;
+
+  &:hover {
+    background-color: $COLOR_HIGHLIGHT;
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: normal;
+}
+
+.button-primary {
+  @extend button;
+  width: 12rem;
+  height: 3rem;
+  background-color: $COLOR_HIGHLIGHT;
+  color: $COLOR_FONT_PRIMARY;
+  font-size: 1.3rem;
+
+  &:hover {
+    background-color: color.scale($COLOR_HIGHLIGHT, $lightness: 10%);
+  }
+}
+
+.button-secondary {
+  width: 12rem;
+  height: 3rem;
+  border: 1px solid $COLOR_HIGHLIGHT;
+  color: $COLOR_HIGHLIGHT;
+  background-color: $COLOR_BACKGROUND;
+  font-size: 1.3rem;
+  &:hover {
+    background-color: color.scale($COLOR_BACKGROUND, $lightness: 10%);
+  }
+}
+
+.custom_input {
+  height: 3rem;
+  border-radius: 5px;
+  border: none;
+  padding: 1rem;
+  background-color: color.change($COLOR_INPUT_BACKGROUND, $alpha: 0.5);
+  font-size: 1.2rem;
+  color: $COLOR_FONT_PRIMARY;
+  text-overflow: ellipsis;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+
+  .app-container__inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1 0 auto;
+  }
+}
+
+.button-invalid {
+  background-color: $COLOR_FONT_SECONDARY;
+  &:hover {
+    background-color: $COLOR_FONT_SECONDARY;
+    cursor: default;
+  }
+}
+
+.validation-error-diplay {
+  color: color.scale($COLOR_HIGHLIGHT, $lightness: 20%);
+  margin: 0.3rem 0 0.5rem;
+  font-size: 1rem;
+}
+
+.form-label {
+  color: $COLOR_HIGHLIGHT;
+}
+
+.form-input {
+  @extend .custom_input !optional;
+  margin: 0.3rem 0 1rem;
+
+  &.disabled {
+    margin: 0;
+    background-color: $COLOR_BACKGROUND;
+  }
+
+  &.invalid-field {
+    border: 1px solid color.scale($COLOR_HIGHLIGHT, $lightness: 20%);
+    margin-bottom: 0;
+  }
+}

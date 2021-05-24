@@ -1,10 +1,10 @@
-@import "../../styles/main.scss";
-
+@import "../../styles/theme.scss";
 .logo {
-  color: $color-soft-red;
-  font-size: 22px;
+  color: $COLOR_HIGHLIGHT;
+  font-size: 1.2rem;
+  letter-spacing: 0.05rem;
 
-  &__bold {
+  .logo__span {
     font-weight: bold;
   }
 }

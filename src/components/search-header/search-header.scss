@@ -1,14 +1,14 @@
 @use "sass:color";
-@import '../../styles/main.scss';
+@import "../../styles/theme.scss";
 
 .search-header {
   display: flex;
   flex-direction: column;
   min-height: 18rem;
   padding: 2rem;
-  background-color: color.change($color-black, $alpha: 0.8);
+  background-color: color.change($COLOR_BACKGROUND, $alpha: 0.8);
 
-  &__top {
+  .search-header__top {
     flex-grow: 2;
     display: flex;
     justify-content: space-between;
@@ -16,18 +16,18 @@
     .add-movie-btn {
       width: 10rem;
       height: 2.5rem;
-      background-color: color.change($color-gray, $alpha: 0.5);
-      color: $color-soft-red;
+      background-color: color.change($COLOR_FONT_SECONDARY, $alpha: 0.5);
+      color: $COLOR_HIGHLIGHT;
       font-size: 1.1rem;
 
       &:hover {
-        background-color: color.change($color-gray, $alpha: 0.8);
+        background-color: color.change($COLOR_FONT_SECONDARY, $alpha: 0.8);
         cursor: pointer;
       }
     }
   }
 
-  &__title {
+  .search-header__title {
     flex-grow: 1;
     padding-left: 2rem;
   }

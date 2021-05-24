@@ -1,38 +1,38 @@
 @use "sass:color";
-@import '../../styles/main.scss';
+@import "../../styles/theme.scss";
 
 .movie-info-header {
   display: flex;
   flex-direction: column;
   min-height: 18rem;
   padding: 2rem;
-  background-color: color.change($color-black, $alpha: 0.8);
+  background-color: color.change($COLOR_BACKGROUND, $alpha: 0.8);
   font-size: 1.2rem;
 
-  &__top {
+  .movie-info-header__top {
     display: flex;
     width: 100%;
     justify-content: space-between;
 
     .search-button {
-      color: $color-soft-red;
+      color: $COLOR_HIGHLIGHT;
       justify-self: flex-end;
       width: 3.2rem;
       height: 3.2rem;
       padding: 0.1rem;
-      background-color: color.change($color-dark-gray, $alpha: 0);
+      background-color: color.change($COLOR_INPUT_BACKGROUND, $alpha: 0);
 
       .search-button__icon {
         font-size: 3rem;
       }
 
       &:hover {
-        color: $color-white;
+        color: $COLOR_FONT_PRIMARY;
       }
     }
   }
 
-  &__container {
+  .movie-info-header__container {
     display: flex;
 
     .movie-info__poster {
@@ -65,9 +65,9 @@
         height: 4rem;
         width: 4rem;
         margin-left: 2rem;
-        border: 1px solid $color-white;
+        border: 1px solid $COLOR_FONT_PRIMARY;
         border-radius: 50%;
-        background-color: $color-black;
+        background-color: $COLOR_BACKGROUND;
         color: rgb(125, 184, 37);
         font-size: 2rem;
       }
@@ -77,7 +77,7 @@
         width: 10rem;
         margin: 1rem 0;
         font-size: 1.3rem;
-        color: $color-soft-red;
+        color: $COLOR_HIGHLIGHT;
       }
     }
   }

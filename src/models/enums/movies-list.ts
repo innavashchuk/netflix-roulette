@@ -1,7 +1,8 @@
+/* eslint-disable no-shadow */
 export enum SortingFieldsEnum {
-  releaseDate = 'release_date',
-  genre = 'genre',
+  title = 'title',
   rating = 'vote_average',
+  releaseDate = 'release_date'
 }
 
 export interface Sorter {
@@ -11,7 +12,7 @@ export interface Sorter {
 }
 
 export interface SorterList {
-  [key: string]: Sorter;
+  [key: string]: Sorter
 }
 
 export enum FilterFieldEnum {
@@ -19,67 +20,69 @@ export enum FilterFieldEnum {
   documentary = 'Documentary',
   comedy = 'Comedy',
   horror = 'Horror',
-  crime = 'Crime',
+  crime = 'Crime'
 }
 
 export interface Filter {
-  key: string;
-  name: FilterFieldEnum;
+  key: string,
+  name: FilterFieldEnum
 }
 
 export interface FilterList {
-  [key: string]: Filter;
+  [key: string]: Filter
 }
 
 export enum SortingDirectionEnum {
-  asc = 'asc',
   desc = 'desc',
+  asc = 'asc'
 }
 
 export const FILTER_FIELDS: FilterList = {
   [FilterFieldEnum.all]: {
     key: 'filterKey0',
-    name: FilterFieldEnum.all,
+    name: FilterFieldEnum.all
   },
   [FilterFieldEnum.documentary]: {
     key: 'filterKey1',
-    name: FilterFieldEnum.documentary,
+    name: FilterFieldEnum.documentary
   },
   [FilterFieldEnum.comedy]: {
     key: 'filterKey2',
-    name: FilterFieldEnum.comedy,
+    name: FilterFieldEnum.comedy
   },
   [FilterFieldEnum.horror]: {
     key: 'filterKey3',
-    name: FilterFieldEnum.horror,
+    name: FilterFieldEnum.horror
   },
   [FilterFieldEnum.crime]: {
     key: 'filterKey4',
-    name: FilterFieldEnum.crime,
-  },
+    name: FilterFieldEnum.crime
+  }
 };
 
 export const SORTING_FIELDS: SorterList = {
-  [SortingFieldsEnum.releaseDate]: {
+  [SortingFieldsEnum.title]: {
     key: 'sortingField0',
-    name: SortingFieldsEnum.releaseDate,
-    label: 'release date'
-  },
-  [SortingFieldsEnum.genre]: {
-    key: 'sortingField1',
-    name: SortingFieldsEnum.genre,
-    label: 'genre'
+    name: SortingFieldsEnum.title,
+    label: SortingFieldsEnum.title
   },
   [SortingFieldsEnum.rating]: {
-    key: 'sortingField2',
+    key: 'sortingField1',
     name: SortingFieldsEnum.rating,
     label: 'rating'
   },
+  [SortingFieldsEnum.releaseDate]: {
+    key: 'sortingField2',
+    name: SortingFieldsEnum.releaseDate,
+    label: 'release date'
+  }
 };
 
+
 export interface MoviesFilter {
-  filterField: FilterFieldEnum;
-  sortField: SortingFieldsEnum;
-  searchValue: string;
-  sortingDirection: SortingDirectionEnum;
+  filterField: FilterFieldEnum,
+  sortField: SortingFieldsEnum,
+  searchValue: string,
+  sortingDirection: SortingDirectionEnum 
 }
+

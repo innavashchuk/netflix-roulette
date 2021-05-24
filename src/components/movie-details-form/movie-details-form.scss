@@ -1,134 +1,112 @@
 @use "sass:color";
-@import '../../styles/main.scss';
+@import "../../styles/theme.scss";
 
 .movie-details {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 35rem;
-  font-size: 1.2rem;
-
-  &__form {
     display: flex;
     flex-direction: column;
-    margin-top: 1.2rem;
+    height: 100%;
+    width: 35rem;
+    font-size: 1.2rem;
 
-    textarea.movie-details__form_input {
-      height: auto;
+    .movie-details__form {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.2rem;
+
+        textarea.form-input {
+            height: auto;
+        }
+
+        .MuiFormControl-marginNormal {
+            margin: 0.5rem 0 1rem;
+            background-color: color.change($COLOR_INPUT_BACKGROUND, $alpha: 0.5);
+            color: $COLOR_FONT_PRIMARY;
+            border-radius: 5px;
+            padding: 0.42rem 1rem;
+
+            &.invalid-field {
+                border: 1px solid color.scale($COLOR_HIGHLIGHT, $lightness: 20%);
+                margin-bottom: 0;
+            }
+        }
+
+        .MuiInputBase-input {
+            color: $COLOR_FONT_PRIMARY;
+            font-size: 1.2rem;
+        }
+
+        .MuiIconButton-root {
+            color: $COLOR_HIGHLIGHT;
+        }
+
+        .MuiInput-underline:after, .MuiInput-underline:before {
+            display: none;
+        }
     }
-    &_input {
-      @extend .custom_input !optional;
-      margin: 0.3rem 0 1rem;
-      height: 3rem;
-      border-radius: 5px;
-      border: none;
-      padding: 1rem;
-      background-color: $color-dark-gray;
-      font-size: 1.2rem;
-      color: $color-white;
-      text-overflow: ellipsis;
-
-      &.disabled {
-        margin: 0;
-        background-color: $color-black;
-      }
+    .movie-details__btns {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        align-self: flex-end;
+        width: 25rem;
+        margin-bottom: 1.5rem;
     }
-
-    .movie-details__form_label {
-      color: $color-soft-red;
-    }
-
-    .MuiFormControl-marginNormal {
-      margin: 0.5rem 0 1rem;
-      background-color: $color-dark-gray;
-      color: $color-white;
-      border-radius: 5px;
-      padding: 0.42rem 1rem;
-
-      &.invalid-field {
-        border: 1px solid color.scale($color-soft-red, $lightness: 20%);
-        margin-bottom: 0;
-      }
-    }
-
-    .MuiInputBase-input {
-      color: $color-white;
-      font-size: 1.2rem;
-    }
-
-    .MuiIconButton-root {
-      color: $color-soft-red;
-    }
-
-    .MuiInput-underline:after,
-    .MuiInput-underline:before {
-      display: none;
-    }
-  }
-  &__btns {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    align-self: flex-end;
-    width: 25rem;
-    margin-bottom: 1.5rem;
-  }
 }
 
 button.MuiButtonBase-root.MuiIconButton-root.MuiPickersDay-day.MuiPickersDay-daySelected {
-  background-color: $color-soft-red;
+    background-color: $COLOR_HIGHLIGHT;
 
-  &:hover {
-    background-color: color.scale($color-soft-red, $lightness: 20%);
-  }
+    &:hover {
+        background-color: color.scale($COLOR_HIGHLIGHT, $lightness: 20%);
+    }
 }
 
 svg.MuiSvgIcon-root.MuiSelect-icon {
-  color: $color-soft-red;
+    color: $COLOR_HIGHLIGHT;
 }
 
 div.MuiPaper-root.MuiMenu-paper.MuiPopover-paper.MuiPaper-elevation8.MuiPaper-rounded {
-  background-color: $color-black;
-  color: $color-white;
+    background-color: $COLOR_BACKGROUND;
+    color: $COLOR_FONT_PRIMARY;
 }
 
 span.MuiCheckbox-root.MuiCheckbox-colorSecondary.MuiIconButton-colorSecondary {
-  padding: 0.5rem;
-  color: $color-soft-red;
+    padding: 0.5rem;
+    color: $COLOR_HIGHLIGHT;
 }
 
 div.MuiPickersBasePicker-pickerView {
-  background-color: $color-black;
-  color: $color-white;
+    background-color: $COLOR_BACKGROUND;
+    color: $COLOR_FONT_PRIMARY;
 
-  button.MuiButtonBase-root.MuiIconButton-root.MuiPickersCalendarHeader-iconButton {
-    background-color: $color-black;
-    color: $color-soft-red;
-  }
+    button.MuiButtonBase-root.MuiIconButton-root.MuiPickersCalendarHeader-iconButton {
+        background-color: $COLOR_BACKGROUND;
+        color: $COLOR_HIGHLIGHT;
+    }
 
-  button.MuiButtonBase-root.MuiIconButton-root.MuiPickersDay-day {
-    color: $color-white;
-  }
+    button.MuiButtonBase-root.MuiIconButton-root.MuiPickersDay-day {
+        color: $COLOR_FONT_PRIMARY;
+    }
 
-  span.MuiPickersCalendarHeader-dayLabel {
-    color: $color-gray;
-  }
+    span.MuiPickersCalendarHeader-dayLabel {
+        color: $COLOR_FONT_SECONDARY;
+    }
 }
 
 ul.MuiMenu-list {
-  outline: 0;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-  max-height: 14rem;
-  padding: 0 0.5rem;
+    outline: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    max-height: 14rem;
+    padding: 0 0.5rem;
 
-  li.MuiMenuItem-root {
-    padding: 0;
-    min-height: 0;
+    li.MuiMenuItem-root {
+        padding: 0;
+        min-height: 0;
 
-    &:hover {
-      color: $color-soft-red;
+        &:hover {
+            color: $COLOR_HIGHLIGHT;
+        }
     }
-  }
 }

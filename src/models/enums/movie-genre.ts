@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 export enum MovieGenreEnum {
     drama = 'Drama',
     actionAndAdventure = 'Action & Adventure',

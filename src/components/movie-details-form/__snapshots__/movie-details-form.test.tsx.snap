@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieDetailsForm should initialize 1`] = `
+<DocumentFragment>
+  <div
+    class="movie-details"
+  >
+    <h1>
+      ADD MOVIE
+    </h1>
+    <form
+      action="#"
+      autocomplete="off"
+      class="movie-details__form"
+    >
+      <label
+        class="form-label"
+        for="title"
+      >
+        TITLE
+      </label>
+      <input
+        aria-label="TITLE"
+        class="form-input"
+        name="title"
+        placeholder="Title here"
+        type="text"
+        value="Star Wars: The Last Jedi"
+      />
+      <label
+        class="form-label"
+        for="release_date"
+      >
+        RELEASE DATE
+      </label>
+      <div
+        aria-label="RELEASE DATE"
+        class="MuiFormControl-root MuiTextField-root MuiFormControl-marginNormal"
+      >
+        <div
+          class="MuiInputBase-root MuiInput-root MuiInput-underline MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedEnd"
+        >
+          <input
+            aria-invalid="false"
+            class="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedEnd"
+            id="date-picker-inline"
+            name="release_date"
+            placeholder="Select Date"
+            type="text"
+            value="01/01/2001"
+          />
+          <div
+            class="MuiInputAdornment-root MuiInputAdornment-positionEnd"
+          >
+            <button
+              aria-label="change date"
+              class="MuiButtonBase-root MuiIconButton-root"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="MuiIconButton-label"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="MuiSvgIcon-root"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z"
+                  />
+                  <path
+                    d="M0 0h24v24H0z"
+                    fill="none"
+                  />
+                </svg>
+              </span>
+              <span
+                class="MuiTouchRipple-root"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+      <label
+        class="form-label"
+        for="poster_path"
+      >
+        MOVIE URL
+      </label>
+      <input
+        aria-label="MOVIE URL"
+        class="form-input"
+        name="poster_path"
+        placeholder="Movie URL here"
+        type="text"
+        value="https://image.tmdb.org/t/p/w500/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg"
+      />
+      <label
+        class="form-label"
+        for="genres"
+      >
+        GENRE
+      </label>
+      <div
+        class="MuiInputBase-root MuiInput-root MuiInput-underline form-input "
+      >
+        <div
+          aria-haspopup="listbox"
+          aria-label="GENRES"
+          aria-labelledby="genres"
+          class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+          id="genres"
+          role="button"
+          tabindex="0"
+        >
+          Fantasy
+        </div>
+        <input
+          aria-hidden="true"
+          class="MuiSelect-nativeInput"
+          name="genres"
+          tabindex="-1"
+          value="Fantasy"
+        />
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSelect-icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+      <label
+        class="form-label"
+        for="overview"
+      >
+        OVERVIEW
+      </label>
+      <textarea
+        aria-label="OVERVIEW"
+        class="form-input "
+        name="overview"
+        placeholder="Overview here"
+        rows="1"
+        style="height: -4px; overflow: hidden;"
+      >
+        Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.
+      </textarea>
+      <textarea
+        aria-hidden="true"
+        class="form-input "
+        readonly=""
+        style="visibility: hidden; position: absolute; overflow: hidden; height: 0px; top: 0px; left: 0px; transform: translateZ(0);"
+        tabindex="-1"
+      />
+      <label
+        class="form-label"
+        for="runtime"
+      >
+        RUNTIME
+      </label>
+      <input
+        aria-label="RUNTIME"
+        class="form-input"
+        name="runtime"
+        placeholder="Runtime here"
+        type="number"
+        value="152"
+      />
+      <div
+        class="movie-details__btns"
+      >
+        <button
+          class="button-secondary"
+          name="reset"
+          type="reset"
+        >
+          RESET
+        </button>
+        <button
+          class="button-primary"
+          name="submit"
+          type="submit"
+        >
+          SUBMIT
+        </button>
+      </div>
+    </form>
+  </div>
+</DocumentFragment>
+`;

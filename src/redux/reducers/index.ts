@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import alertReducer, {AlertState} from './alert';
-import loaderReducer, {LoaderState} from './loader';
-import moviesReducer, {MoviesState} from './movies/movies';
-import {MovieQueryParams} from '../../models/movie-query-params';
+import { MovieQueryParams } from '../../models/movie-query-params';
+import alertReducer, { AlertState } from './alert';
+import loaderReducer, { LoaderState } from './loader';
+import moviesReducer, { MoviesState } from './movies';
 import queryParamsReducer from './query-params';
 
 export interface AppState {

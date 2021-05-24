@@ -1,2 +1,8 @@
-@import './styles/reset.scss';
-@import './styles/main.scss';
+@import "./styles/reset.scss";
+@import "./styles/theme.scss";
+
+.output {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}

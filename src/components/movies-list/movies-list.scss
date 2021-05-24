@@ -10,18 +10,17 @@
 .movies-list {
   width: 100%;
   display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   justify-items: center;
   column-gap: 2rem;
   row-gap: 0.5rem;
   min-width: 0;
-  padding: 0 0 30px 0;
 }
 
 .movies-total {
   font-size: 1.3rem;
   padding: 0.5rem 0;
-
-  &__count {
+  .movies-total__count {
     font-weight: bold;
   }
 }

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer should initialize 1`] = `
+<DocumentFragment>
+  <footer
+    class="footer"
+  >
+    <p
+      class="logo"
+    >
+      <span
+        class="logo__span"
+      >
+        netflix
+      </span>
+      roulette
+    </p>
+  </footer>
+</DocumentFragment>
+`;

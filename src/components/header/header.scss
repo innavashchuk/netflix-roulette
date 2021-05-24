@@ -1,7 +1,7 @@
-@import '../../styles/main.scss';
+@import "../../styles/theme.scss";
 
 .header {
-  background-image: url('../../assets/images/background-header.png');
+  background: url("../../assets/images/header.jpg");
   background-size: cover;
-  border-bottom: 0.7rem solid $color-gray;
+  border-bottom: 0.7rem solid $COLOR_FONT_SECONDARY;
 }

@@ -1,34 +1,61 @@
-import {useMemo} from 'react';
-import {LocationDescriptor, History} from 'history';
-import {useParams, useLocation, useHistory, useRouteMatch} from 'react-router-dom';
+import { useMemo } from 'react';
+import { LocationDescriptor, History } from 'history';
+import { useParams, useLocation, useHistory, useRouteMatch } from 'react-router-dom';
 import * as queryString from 'query-string';
-import {match} from 'react-router';
+import { match } from 'react-router';
 
 export interface RouterMemo {
-    push: { (path: string, state?: unknown): void; (location: LocationDescriptor<unknown>): void; };
-    replace: { (path: string, state?: unknown): void; (location: LocationDescriptor<unknown>): void; };
-    pathname: string;
-    query: Record<string, unknown>;
-    match: match<Record<string, string>>;
-    history: History<unknown>;
+  push: { (path: string, state?: unknown): void; (location: LocationDescriptor<unknown>): void; };
+  replace: { (path: string, state?: unknown): void; (location: LocationDescriptor<unknown>): void; };
+  pathname: string;
+  query: Record<string, unknown>;
+  match: match<Record<string, string>>;
+  history: History<unknown>;
 }
 
-export default function useRouter(): RouterMemo {
-    const params = useParams();
-    const location = useLocation();
-    const history = useHistory();
-    const match = useRouteMatch();
+/**
+ * // Usage
+ * function MyComponent(){
+ * // Get the router object
+ * const router = useRouter();
 
-    return useMemo(() => ({
-        push: history.push,
-        replace: history.replace,
-        pathname: location.pathname,
-        query: {
-            ...queryString.parse(location.search),
-            ...params
-        },
-        match,
-        location,
-        history
-    }), [params, match, location, history]);
+ * // Get value from query string (?postId=123) or route param (/:postId)
+ * console.log(router.query.postId);
+
+ * // Get current pathname
+ * console.log(router.pathname)
+
+ * // Navigate with router.push()
+ * return (
+ *   <button onClick={(e) => router.push('/about')}>About</button>
+ * );
+ * }
+ */
+
+export default function useRouter(): RouterMemo {
+  const params = useParams();
+  const location = useLocation();
+  const history = useHistory();
+  const match = useRouteMatch();
+
+  // Return our custom router object
+  // Memoize so that a new object is only returned if something changes
+  return useMemo(() => ({
+    // For convenience add push(), replace(), pathname at top level
+    push: history.push,
+    replace: history.replace,
+    pathname: location.pathname,
+    // Merge params and parsed query string into single "query" object
+    // so that they can be used interchangeably.
+    // Example: /:topic?sort=popular -> { topic: "react", sort: "popular" }
+    query: {
+      ...queryString.parse(location.search), // Convert string to object
+      ...params
+    },
+    // Include match, location, history objects so we have
+    // access to extra React Router functionality if needed.
+    match,
+    location,
+    history
+  }), [params, match, location, history]);
 }

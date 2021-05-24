@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovieInfoHeader should initialize 1`] = `
+<DocumentFragment>
+  <div
+    class="movie-info-header"
+  >
+    <div
+      class="movie-info-header__top"
+    >
+      <p
+        class="logo"
+      >
+        <span
+          class="logo__span"
+        >
+          netflix
+        </span>
+        roulette
+      </p>
+      <button
+        class="search-button"
+      >
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root search-button__icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+          />
+        </svg>
+      </button>
+    </div>
+    <div
+      class="movie-info-header__container"
+    >
+      <img
+        alt="Star Wars: The Last Jedi poster"
+        class="movie-info__poster"
+        src="https://image.tmdb.org/t/p/w500/kOVEVeg59E0wsnXmF9nrh6OmWII.jpg"
+      />
+      <div
+        class="movie-info"
+      >
+        <div
+          class="movie-info__title"
+        >
+          <h1
+            class="movie-info__movie_title"
+          >
+            Star Wars: The Last Jedi
+          </h1>
+          <div
+            class="movie-info__rating"
+          >
+            7.1
+          </div>
+        </div>
+        <p>
+          Adventure, Fantasy, Science Fiction
+        </p>
+        <div
+          class="movie-info__line"
+        >
+          <p>
+            2017
+          </p>
+          <p>
+            152 min
+          </p>
+        </div>
+        <p>
+          Rey develops her newly discovered abilities with the guidance of Luke Skywalker, who is unsettled by the strength of her powers. Meanwhile, the Resistance prepares to do battle with the First Order.
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterBar should initialize 1`] = `
+<DocumentFragment>
+  <div
+    class="filter-tab"
+  >
+    <div
+      class="filter-tab__filters"
+    >
+      <button
+        class="filter-tab__item button-dark "
+        id="filterKey0"
+        name="All"
+      >
+        ALL
+      </button>
+      <button
+        class="filter-tab__item button-dark active"
+        id="filterKey1"
+        name="Documentary"
+      >
+        DOCUMENTARY
+      </button>
+      <button
+        class="filter-tab__item button-dark "
+        id="filterKey2"
+        name="Comedy"
+      >
+        COMEDY
+      </button>
+      <button
+        class="filter-tab__item button-dark "
+        id="filterKey3"
+        name="Horror"
+      >
+        HORROR
+      </button>
+      <button
+        class="filter-tab__item button-dark "
+        id="filterKey4"
+        name="Crime"
+      >
+        CRIME
+      </button>
+    </div>
+    <div
+      class="filter-tab__sort"
+    >
+      <p
+        class="filter-tab__sort_lbl"
+      >
+        SORT BY
+      </p>
+      <div
+        class="MuiInputBase-root MuiInput-root MuiInput-underline filter-tab__sort_btn button-dark"
+      >
+        <div
+          aria-haspopup="listbox"
+          class="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiInputBase-input MuiInput-input"
+          role="button"
+          tabindex="0"
+        >
+          Select...
+        </div>
+        <input
+          aria-hidden="true"
+          class="MuiSelect-nativeInput"
+          tabindex="-1"
+          value=""
+        />
+        <svg
+          aria-hidden="true"
+          class="MuiSvgIcon-root MuiSelect-icon"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M7 10l5 5 5-5z"
+          />
+        </svg>
+      </div>
+      <button
+        aria-label="SORT ORDER"
+        class="filter-tab__sort_btn button-dark filter-tab__sort_direction"
+      >
+        <div
+          class="filter-tab__sort_direction_desc"
+          data-testid="sortOrderIcon"
+        />
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
